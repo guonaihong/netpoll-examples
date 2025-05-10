@@ -27,7 +27,13 @@ import (
 func main() {
 	network, address := "tcp", ":8080"
 	listener, _ := netpoll.CreateListener(network, address)
-
+	
+	netpoll.Configure(netpoll.Config{
+		PollerNum: runtime.NumCPU(),
+		// Runner: func(ctx context.Context, task func()) {
+		// 	task()
+		// },
+	})
 	eventLoop, _ := netpoll.NewEventLoop(
 		handle,
 		netpoll.WithOnPrepare(prepare),
